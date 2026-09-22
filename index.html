@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <meta name="description" content="Khang Do — Java & C++ Developer, Full-stack enthusiast and builder." />
+
+  <title>Khang Do — Developer Portfolio</title>
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-mark">
+      KD<span>.</span>
+    </div>
+
+    <div class="loader-bar">
+      <span></span>
+    </div>
+  </div>
+
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="spotlight" id="spotlight"></div>
+  <div class="noise"></div>
+
+
+  <header class="site-header" id="siteHeader">
+
+    <nav class="nav container">
+
+      <a
+        class="brand magnetic"
+        href="#home"
+        aria-label="Khang Do home"
+      >
+        KD<span>.</span>
+      </a>
+
+
+      <div class="nav-links" id="navLinks">
+
+        <a href="#about">
+          About
+        </a>
+
+        <a href="#projects">
+          Projects
+        </a>
+
+        <a href="#stack">
+          Stack
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+      </div>
+
+
+      <a
+        class="nav-cta magnetic"
+        href="https://github.com/KhangDo25"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub ↗
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+
+    <section
+      class="hero section"
+      id="home"
+    >
+
+      <div class="grid-bg"></div>
+
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+
+
+      <div class="hero-inner container">
+
+        <div class="hero-copy reveal">
+
+          <p class="eyebrow">
+            <span class="pulse"></span>
+            AVAILABLE FOR INTERNSHIP / COLLABORATION
+          </p>
+
+
+          <h1>
+
+            I turn ideas into
+
+            <span class="gradient-text">
+              things people can use.
+            </span>
+
+          </h1>
+
+
+          <p class="hero-lead">
+
+            I'm Khang, an IT student focused on Java,
+            C++ and full-stack software development.
+
+            I like taking rough ideas, turning them into systems,
+            then making the systems less embarrassing.
+
+          </p>
+
+
+          <div class="hero-actions">
+
+            <a
+              class="btn btn-primary magnetic"
+              href="#projects"
+            >
+              Explore my work
+              <span>↓</span>
+            </a>
+
+
+            <a
+              class="btn btn-ghost magnetic"
+              href="https://github.com/KhangDo25"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open GitHub ↗
+            </a>
+
+          </div>
+
+
+          <div class="hero-meta">
+
+            <div>
+
+              <strong>
+                03
+              </strong>
+
+              <span>
+                featured projects
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <strong>
+                JAVA
+              </strong>
+
+              <span>
+                backend focus
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <strong>
+                C++
+              </strong>
+
+              <span>
+                problem solving
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="hero-terminal reveal delay-2"
+          data-tilt
+        >
+
+          <div class="terminal-head">
+
+            <div class="terminal-dots">
+
+              <i></i>
+              <i></i>
+              <i></i>
+
+            </div>
+
+
+            <span>
+              khang@dev:~
+            </span>
+
+
+            <button
+              class="copy-btn magnetic"
+              id="copyCommand"
+              type="button"
+            >
+              copy
+            </button>
+
+          </div>
+
+
+          <div
+            class="terminal-body"
+            id="terminalBody"
+          >
+
+            <div class="term-line">
+
+              <span class="prompt">
+                $
+              </span>
+
+              whoami
+
+            </div>
+
+
+            <div class="term-output accent">
+              khangdo25
+            </div>
+
+
+            <div class="term-line">
+
+              <span class="prompt">
+                $
+              </span>
+
+              cat stack.txt
+
+            </div>
+
+
+            <div class="term-output">
+
+              Java · C++ · JavaScript · React · Spring Boot
+
+            </div>
+
+
+            <div class="term-line">
+
+              <span class="prompt">
+                $
+              </span>
+
+              git status
+
+            </div>
+
+
+            <div class="term-output good">
+
+              ● building things that actually run
+
+            </div>
+
+
+            <div class="term-line">
+
+              <span class="prompt">
+                $
+              </span>
+
+              <span id="typedCommand"></span>
+
+              <span class="caret"></span>
+
+            </div>
+
+          </div>
+
+
+          <div class="terminal-footer">
+
+            <span>
+              main
+            </span>
+
+            <span>
+              ● clean working tree
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="scroll-cue">
+
+        <span></span>
+
+        SCROLL TO EXPLORE
+
+      </div>
+
+    </section>
+
+
+
+    <!-- MARQUEE -->
+
+    <section
+      class="marquee-section"
+      aria-label="technology marquee"
+    >
+
+      <div class="marquee-track">
+
+        <span>JAVA</span>
+        <b>✦</b>
+
+        <span>C++</span>
+        <b>✦</b>
+
+        <span>JAVASCRIPT</span>
+        <b>✦</b>
+
+        <span>REACT</span>
+        <b>✦</b>
+
+        <span>SPRING BOOT</span>
+        <b>✦</b>
+
+        <span>GIT</span>
+        <b>✦</b>
+
+        <span>LINUX</span>
+        <b>✦</b>
+
+
+        <span>JAVA</span>
+        <b>✦</b>
+
+        <span>C++</span>
+        <b>✦</b>
+
+        <span>JAVASCRIPT</span>
+        <b>✦</b>
+
+        <span>REACT</span>
+        <b>✦</b>
+
+        <span>SPRING BOOT</span>
+        <b>✦</b>
+
+        <span>GIT</span>
+        <b>✦</b>
+
+        <span>LINUX</span>
+        <b>✦</b>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ABOUT -->
+
+    <section
+      class="section section-dark"
+      id="about"
+    >
+
+      <div class="container split">
+
+        <div class="section-intro reveal">
+
+          <p class="eyebrow">
+            01 / ABOUT
+          </p>
+
+          <h2>
+
+            Curious by default.
+
+            <br />
+
+            <span class="muted">
+              Practical by choice.
+            </span>
+
+          </h2>
+
+        </div>
+
+
+        <div class="about-copy reveal delay-1">
+
+          <p class="big-copy">
+
+            I learn fastest when there is something real to ship.
+
+          </p>
+
+
+          <p>
+
+            My background started strongly in C++ and problem solving.
+            I'm now building toward Java backend and full-stack development,
+            with an increasing focus on Linux and DevOps workflows.
+
+          </p>
+
+
+          <div class="about-facts">
+
+            <div>
+
+              <span>
+                FOCUS
+              </span>
+
+              <strong>
+                Backend / Full-stack
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                MINDSET
+              </span>
+
+              <strong>
+                Build · test · improve
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                BASED IN
+              </span>
+
+              <strong>
+                Vietnam
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PROJECTS -->
+
+    <section
+      class="section projects-section"
+      id="projects"
+    >
+
+      <div class="container">
+
+
+        <div class="section-head reveal">
+
+          <div>
+
+            <p class="eyebrow">
+              02 / SELECTED WORK
+            </p>
+
+            <h2>
+
+              Three projects.
+
+              <br />
+
+              <span class="muted">
+                Three different problems.
+              </span>
+
+            </h2>
+
+          </div>
+
+
+          <p class="section-note">
+
+            I picked these three because together they show
+            product thinking, application architecture,
+            interactive UI and real-time systems without
+            pretending every school project is a startup.
+
+          </p>
+
+        </div>
+
+
+
+        <div class="projects-grid">
+
+
+          <article
+            class="project-card project-linh reveal"
+            data-tilt
+          >
+
+            <div class="project-glow"></div>
+
+
+            <div class="project-top">
+
+              <span class="project-index">
+                01
+              </span>
+
+              <span class="project-status">
+                IN DEVELOPMENT
+              </span>
+
+            </div>
+
+
+            <div class="project-symbol">
+              🐉
+            </div>
+
+
+            <h3>
+              LinhNam
+            </h3>
+
+
+            <p>
+
+              Interactive Vietnamese mythology experience
+              combined with authentication, persistence,
+              shop, cart and checkout flows.
+
+            </p>
+
+
+            <div class="tags">
+
+              <span>
+                Next.js 16
+              </span>
+
+              <span>
+                React 19
+              </span>
+
+              <span>
+                TypeScript
+              </span>
+
+              <span>
+                MongoDB
+              </span>
+
+            </div>
+
+
+            <div class="project-bottom">
+
+              <span>
+                Storytelling + application architecture
+              </span>
+
+              <a
+                href="https://github.com/KhangDo25/LinhNam"
+                target="_blank"
+                rel="noreferrer"
+                class="magnetic"
+              >
+                GitHub ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+
+          <article
+            class="project-card project-spirit reveal delay-1"
+            data-tilt
+          >
+
+            <div class="project-glow"></div>
+
+
+            <div class="project-top">
+
+              <span class="project-index">
+                02
+              </span>
+
+              <span class="project-status live-ish">
+                LIVE BUILD
+              </span>
+
+            </div>
+
+
+            <div class="project-symbol">
+              ⚡
+            </div>
+
+
+            <h3>
+              SpiritMaster
+            </h3>
+
+
+            <p>
+
+              Multiplayer spirit game built around
+              competitive mini-games, real-time battles,
+              spirit collection and single-player adventures.
+
+            </p>
+
+
+            <div class="tags">
+
+              <span>
+                React 18
+              </span>
+
+              <span>
+                Vite
+              </span>
+
+              <span>
+                TypeScript
+              </span>
+
+              <span>
+                Express
+              </span>
+
+              <span>
+                Node.js
+              </span>
+
+            </div>
+
+
+            <div class="project-bottom">
+
+              <span>
+                Real-time game systems
+              </span>
+
+              <a
+                href="https://github.com/KhangDo25/SpiritMaster"
+                target="_blank"
+                rel="noreferrer"
+                class="magnetic"
+              >
+                GitHub ↗
+              </a>
+
+            </div>
+
+          </article>
+
+
+
+          <article
+            class="project-card project-travel reveal delay-2"
+            data-tilt
+          >
+
+            <div class="project-glow"></div>
+
+
+            <div class="project-top">
+
+              <span class="project-index">
+                03
+              </span>
+
+              <span class="project-status">
+                PRODUCT
+              </span>
+
+            </div>
+
+
+            <div class="project-symbol">
+              ✈
+            </div>
+
+
+            <h3>
+              TravelVN
+            </h3>
+
+
+            <p>
+
+              Vietnam travel discovery app combining
+              destination exploration with AI-assisted
+              trip ideas and information.
+
+            </p>
+
+
+            <div class="tags">
+
+              <span>
+                React
+              </span>
+
+              <span>
+                TypeScript
+              </span>
+
+              <span>
+                Vite
+              </span>
+
+              <span>
+                Generative AI
+              </span>
+
+            </div>
+
+
+            <div class="project-bottom">
+
+              <span>
+                Search + AI travel experience
+              </span>
+
+              <a
+                href="https://github.com/KhangDo25/TravelVN"
+                target="_blank"
+                rel="noreferrer"
+                class="magnetic"
+              >
+                GitHub ↗
+              </a>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- STACK -->
+
+    <section
+      class="section section-dark stack-section"
+      id="stack"
+    >
+
+      <div class="container">
+
+
+        <div class="section-head reveal">
+
+          <div>
+
+            <p class="eyebrow">
+              03 / STACK
+            </p>
+
+            <h2>
+
+              Tools are tools.
+
+              <br />
+
+              <span class="muted">
+                The interesting bit is how they connect.
+              </span>
+
+            </h2>
+
+          </div>
+
+
+          <p class="section-note">
+
+            Current direction: become strong enough at
+            backend + frontend + deployment to understand
+            the whole request lifecycle, not just the component
+            in front of me.
+
+          </p>
+
+        </div>
+
+
+
+        <div class="stack-orbit reveal">
+
+          <div class="orbit-center">
+
+            <span>
+              KD
+            </span>
+
+            <small>
+              BUILD LOOP
+            </small>
+
+          </div>
+
+
+          <span class="orbit-tag tag-1">
+            JAVA
+          </span>
+
+          <span class="orbit-tag tag-2">
+            C++
+          </span>
+
+          <span class="orbit-tag tag-3">
+            REACT
+          </span>
+
+          <span class="orbit-tag tag-4">
+            SPRING
+          </span>
+
+          <span class="orbit-tag tag-5">
+            JS
+          </span>
+
+          <span class="orbit-tag tag-6">
+            LINUX
+          </span>
+
+        </div>
+
+
+
+        <div class="skills-row reveal">
+
+          <div>
+
+            <span>
+              LANGUAGES
+            </span>
+
+            <strong>
+              Java · C++ · JavaScript · TypeScript
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              WEB
+            </span>
+
+            <strong>
+              React · Next.js · HTML · CSS · REST
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              BACKEND
+            </span>
+
+            <strong>
+              Spring Boot · Node.js · Express · MongoDB
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              ENGINEERING
+            </span>
+
+            <strong>
+              Git · Linux · Deployment · Debugging
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PROCESS -->
+
+    <section
+      class="section process-section"
+    >
+
+      <div class="container">
+
+
+        <div class="section-intro reveal">
+
+          <p class="eyebrow">
+            04 / HOW I WORK
+          </p>
+
+          <h2>
+
+            A simple loop.
+
+            <br />
+
+            <span class="muted">
+              Repeated aggressively.
+            </span>
+
+          </h2>
+
+        </div>
+
+
+
+        <div class="process-grid">
+
+
+          <div class="process-card reveal">
+
+            <span>
+              01
+            </span>
+
+            <h3>
+              Understand
+            </h3>
+
+            <p>
+
+              Break the problem into flows,
+              data and constraints before touching
+              the keyboard.
+
+            </p>
+
+          </div>
+
+
+          <div class="process-card reveal delay-1">
+
+            <span>
+              02
+            </span>
+
+            <h3>
+              Build
+            </h3>
+
+            <p>
+
+              Start with the smallest useful path,
+              then layer features instead of inventing
+              architecture fan-fiction.
+
+            </p>
+
+          </div>
+
+
+          <div class="process-card reveal delay-2">
+
+            <span>
+              03
+            </span>
+
+            <h3>
+              Verify
+            </h3>
+
+            <p>
+
+              Run it, inspect it, test edge cases,
+              and fix what reality just exposed.
+
+            </p>
+
+          </div>
+
+
+          <div class="process-card reveal delay-3">
+
+            <span>
+              04
+            </span>
+
+            <h3>
+              Improve
+            </h3>
+
+            <p>
+
+              Refactor, secure, document and deploy.
+              A project that only works on one laptop
+              is a hostage situation.
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- CONTACT -->
+
+    <section
+      class="section contact-section"
+      id="contact"
+    >
+
+      <div class="container contact-box reveal">
+
+        <div class="contact-copy">
+
+          <p class="eyebrow">
+            05 / CONTACT
+          </p>
+
+
+          <h2>
+
+            Let's build something
+
+            <br />
+
+            <span class="gradient-text">
+              worth showing.
+            </span>
+
+          </h2>
+
+
+          <p>
+
+            I'm open to internship opportunities,
+            project collaboration and conversations
+            about software engineering.
+
+          </p>
+
+        </div>
+
+
+        <div class="contact-actions">
+
+          <a
+            class="contact-link magnetic"
+            href="mailto:khangdo0929@gmail.com"
+          >
+            khangdo0929@gmail.com ↗
+          </a>
+
+
+          <a
+            class="contact-link"
+            href="https://github.com/KhangDo25"
+            target="_blank"
+            rel="noreferrer"
+          >
+            github.com/KhangDo25 ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <footer class="footer">
+
+    <div class="container footer-inner">
+
+      <span>
+        © 2026 Khang Do
+      </span>
+
+      <span>
+        Built with HTML · CSS · JavaScript
+      </span>
+
+      <a href="#home">
+        Back to top ↑
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
