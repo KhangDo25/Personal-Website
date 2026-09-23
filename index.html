@@ -5,23 +5,374 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#09090b" />
   <meta name="description" content="Khang Do — Java & C++ Developer, Full-stack enthusiast and builder." />
-
   <title>Khang Do — Developer Portfolio</title>
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body.perf-lite .noise {
+      display: none;
+    }
+
+    body.perf-lite .orb {
+      filter: blur(46px);
+      opacity: .15;
+      animation-duration: 18s;
+    }
+
+    body.perf-lite .project-glow {
+      filter: blur(42px);
+      opacity: .12;
+    }
+
+    body.perf-lite .hero-terminal::before,
+    body.perf-lite .project-card::after {
+      animation-duration: 10s;
+    }
+
+    body.perf-lite .spotlight {
+      opacity: .55;
+    }
+
+    .lang-toggle {
+      margin-left: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .lang-toggle {
+        font-size: 10px;
+      }
+    }
+
+    /* =========================
+       AMBIENT ANIMATION
+    ========================= */
+
+    .ambient-fx,
+    .hero-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .hero-particles {
+      position: absolute;
+      z-index: 0;
+    }
+
+    .fx-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(180, 120, 255, .65);
+      box-shadow: 0 0 14px rgba(180, 120, 255, .45);
+      animation: drift 12s ease-in-out infinite;
+    }
+
+    .fx-dot-1 {
+      left: 8%;
+      top: 28%;
+    }
+
+    .fx-dot-2 {
+      left: 27%;
+      top: 72%;
+      animation-delay: -3s;
+    }
+
+    .fx-dot-3 {
+      left: 64%;
+      top: 24%;
+      animation-delay: -7s;
+    }
+
+    .fx-dot-4 {
+      left: 88%;
+      top: 68%;
+      animation-delay: -5s;
+    }
+
+    .fx-ring {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border: 1px solid rgba(120, 220, 255, .12);
+      border-radius: 50%;
+      animation: ringFloat 15s ease-in-out infinite;
+    }
+
+    .fx-ring-1 {
+      left: 7%;
+      top: 54%;
+    }
+
+    .fx-ring-2 {
+      right: 9%;
+      top: 18%;
+      width: 46px;
+      height: 46px;
+      animation-delay: -7s;
+    }
+
+    .hero-particles span {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(110, 220, 255, .6);
+      animation: particleFloat 9s ease-in-out infinite;
+    }
+
+    .hero-particles span:nth-child(1) {
+      left: 12%;
+      top: 22%;
+      animation-delay: -1s;
+    }
+
+    .hero-particles span:nth-child(2) {
+      left: 34%;
+      top: 15%;
+      animation-delay: -5s;
+    }
+
+    .hero-particles span:nth-child(3) {
+      left: 55%;
+      top: 70%;
+      animation-delay: -2s;
+    }
+
+    .hero-particles span:nth-child(4) {
+      left: 74%;
+      top: 34%;
+      animation-delay: -6s;
+    }
+
+    .hero-particles span:nth-child(5) {
+      left: 91%;
+      top: 52%;
+      animation-delay: -4s;
+    }
+
+    .hero-particles span:nth-child(6) {
+      left: 46%;
+      top: 42%;
+      animation-delay: -8s;
+    }
+
+    .project-card {
+      transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .28);
+    }
+
+    .marquee-section {
+      position: relative;
+    }
+
+    .marquee-spark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 11px;
+      opacity: .3;
+      animation: sparkSpin 7s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0);
+        opacity: .25;
+      }
+
+      50% {
+        transform: translate3d(35px, -45px, 0);
+        opacity: .85;
+      }
+    }
+
+    @keyframes ringFloat {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+
+      50% {
+        transform: translate3d(28px, -24px, 0) rotate(180deg);
+      }
+    }
+
+    @keyframes particleFloat {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0);
+        opacity: .2;
+      }
+
+      50% {
+        transform: translate3d(18px, -30px, 0);
+        opacity: .8;
+      }
+    }
+
+    @keyframes sparkSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .ambient-fx {
+        opacity: .55;
+      }
+
+      .fx-ring {
+        width: 44px;
+        height: 44px;
+      }
+
+      .fx-ring-2 {
+        width: 30px;
+        height: 30px;
+      }
+
+      .hero-particles {
+        opacity: .7;
+      }
+
+      .fx-dot {
+        width: 3px;
+        height: 3px;
+      }
+
+      .marquee-spark {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fx-dot,
+      .fx-ring,
+      .hero-particles span,
+      .marquee-spark {
+        animation: none;
+      }
+    }
+
+    /* =========================
+       EXTRA INTERACTION
+    ========================= */
+
+    .ambient-fx .fx-dot {
+      mix-blend-mode: screen;
+    }
+
+    .ambient-fx .fx-dot:nth-child(odd) {
+      animation-duration: 16s;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 8% 8% auto;
+      width: 140px;
+      height: 140px;
+      border: 1px solid rgba(180, 120, 255, .08);
+      border-radius: 50%;
+      animation: slowOrbit 20s linear infinite;
+      pointer-events: none;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background:
+        linear-gradient(
+          120deg,
+          transparent 25%,
+          rgba(255, 255, 255, .08),
+          transparent 55%
+        );
+      transform: translateX(-120%);
+      pointer-events: none;
+    }
+
+    .project-card:hover::before {
+      animation: sweep 1.1s ease;
+    }
+
+    .process-card {
+      transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .process-card:hover {
+      transform: translateY(-5px);
+    }
+
+    @keyframes slowOrbit {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes sweep {
+      to {
+        transform: translateX(120%);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .hero::after {
+        width: 80px;
+        height: 80px;
+        right: 4%;
+        bottom: 12%;
+      }
+
+      .project-card:hover::before {
+        animation: none;
+      }
+
+      .process-card:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero::after,
+      .project-card:hover::before {
+        animation: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+
+  <!-- =========================
+       LOADER
+  ========================== -->
 
   <div class="loader" id="loader" aria-hidden="true">
     <div class="loader-mark">
@@ -34,11 +385,37 @@
   </div>
 
 
+  <!-- =========================
+       CURSOR
+  ========================== -->
+
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursorDot"></div>
+
   <div class="spotlight" id="spotlight"></div>
   <div class="noise"></div>
 
+
+  <!-- =========================
+       AMBIENT FX
+  ========================== -->
+
+  <div class="ambient-fx" aria-hidden="true">
+
+    <span class="fx-dot fx-dot-1"></span>
+    <span class="fx-dot fx-dot-2"></span>
+    <span class="fx-dot fx-dot-3"></span>
+    <span class="fx-dot fx-dot-4"></span>
+
+    <span class="fx-ring fx-ring-1"></span>
+    <span class="fx-ring fx-ring-2"></span>
+
+  </div>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
 
   <header class="site-header" id="siteHeader">
 
@@ -51,7 +428,6 @@
       >
         KD<span>.</span>
       </a>
-
 
       <div class="nav-links" id="navLinks">
 
@@ -73,24 +449,43 @@
 
       </div>
 
+      <div class="nav-actions">
 
-      <a
-        class="nav-cta magnetic"
-        href="https://github.com/KhangDo25"
-        target="_blank"
-        rel="noreferrer"
-      >
-        GitHub ↗
-      </a>
+        <button
+          class="nav-cta magnetic lang-toggle"
+          id="langToggle"
+          type="button"
+          aria-label="Chuyển ngôn ngữ"
+        >
+          VI
+        </button>
+
+        <a
+          class="nav-cta magnetic"
+          href="https://github.com/KhangDo25"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub ↗
+        </a>
+
+      </div>
 
     </nav>
 
   </header>
 
 
+  <!-- =========================
+       MAIN
+  ========================== -->
+
   <main>
 
-    <!-- HERO -->
+
+    <!-- =========================
+         HERO
+    ========================== -->
 
     <section
       class="hero section"
@@ -103,13 +498,36 @@
       <div class="orb orb-b"></div>
 
 
+      <!-- Hero particles -->
+
+      <div
+        class="hero-particles"
+        aria-hidden="true"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </div>
+
+
       <div class="hero-inner container">
+
+
+        <!-- HERO COPY -->
 
         <div class="hero-copy reveal">
 
           <p class="eyebrow">
+
             <span class="pulse"></span>
+
             AVAILABLE FOR INTERNSHIP / COLLABORATION
+
           </p>
 
 
@@ -128,9 +546,8 @@
 
             I'm Khang, an IT student focused on Java,
             C++ and full-stack software development.
-
-            I like taking rough ideas, turning them into systems,
-            then making the systems less embarrassing.
+            I like taking rough ideas, turning them into
+            systems, then making the systems less embarrassing.
 
           </p>
 
@@ -144,7 +561,6 @@
               Explore my work
               <span>↓</span>
             </a>
-
 
             <a
               class="btn btn-ghost magnetic"
@@ -161,47 +577,26 @@
           <div class="hero-meta">
 
             <div>
-
-              <strong>
-                03
-              </strong>
-
-              <span>
-                featured projects
-              </span>
-
+              <strong>03</strong>
+              <span>featured projects</span>
             </div>
 
-
             <div>
-
-              <strong>
-                JAVA
-              </strong>
-
-              <span>
-                backend focus
-              </span>
-
+              <strong>JAVA</strong>
+              <span>backend focus</span>
             </div>
 
-
             <div>
-
-              <strong>
-                C++
-              </strong>
-
-              <span>
-                problem solving
-              </span>
-
+              <strong>C++</strong>
+              <span>problem solving</span>
             </div>
 
           </div>
 
         </div>
 
+
+        <!-- TERMINAL -->
 
         <div
           class="hero-terminal reveal delay-2"
@@ -218,11 +613,9 @@
 
             </div>
 
-
             <span>
               khang@dev:~
             </span>
-
 
             <button
               class="copy-btn magnetic"
@@ -336,12 +729,22 @@
 
 
 
-    <!-- MARQUEE -->
+    <!-- =========================
+         MARQUEE
+    ========================== -->
 
     <section
       class="marquee-section"
       aria-label="technology marquee"
     >
+
+      <div
+        class="marquee-spark"
+        aria-hidden="true"
+      >
+        ✦
+      </div>
+
 
       <div class="marquee-track">
 
@@ -394,7 +797,9 @@
 
 
 
-    <!-- ABOUT -->
+    <!-- =========================
+         ABOUT
+    ========================== -->
 
     <section
       class="section section-dark"
@@ -402,6 +807,7 @@
     >
 
       <div class="container split">
+
 
         <div class="section-intro reveal">
 
@@ -435,8 +841,9 @@
 
           <p>
 
-            My background started strongly in C++ and problem solving.
-            I'm now building toward Java backend and full-stack development,
+            My background started strongly in C++
+            and problem solving. I'm now building
+            toward Java backend and full-stack development,
             with an increasing focus on Linux and DevOps workflows.
 
           </p>
@@ -492,7 +899,9 @@
 
 
 
-    <!-- PROJECTS -->
+    <!-- =========================
+         PROJECTS
+    ========================== -->
 
     <section
       class="section projects-section"
@@ -527,10 +936,10 @@
 
           <p class="section-note">
 
-            I picked these three because together they show
-            product thinking, application architecture,
-            interactive UI and real-time systems without
-            pretending every school project is a startup.
+            I picked these three because together
+            they show product thinking, application architecture,
+            interactive UI and real-time systems without pretending
+            every school project is a startup.
 
           </p>
 
@@ -540,6 +949,8 @@
 
         <div class="projects-grid">
 
+
+          <!-- LINHNAM -->
 
           <article
             class="project-card project-linh reveal"
@@ -622,6 +1033,8 @@
           </article>
 
 
+
+          <!-- SPIRITMASTER -->
 
           <article
             class="project-card project-spirit reveal delay-1"
@@ -708,6 +1121,8 @@
           </article>
 
 
+
+          <!-- TRAVELVN -->
 
           <article
             class="project-card project-travel reveal delay-2"
@@ -797,7 +1212,9 @@
 
 
 
-    <!-- STACK -->
+    <!-- =========================
+         STACK
+    ========================== -->
 
     <section
       class="section section-dark stack-section"
@@ -832,16 +1249,18 @@
 
           <p class="section-note">
 
-            Current direction: become strong enough at
-            backend + frontend + deployment to understand
-            the whole request lifecycle, not just the component
-            in front of me.
+            Current direction:
+            become strong enough at backend + frontend
+            + deployment to understand the whole request lifecycle,
+            not just the component in front of me.
 
           </p>
 
         </div>
 
 
+
+        <!-- ORBIT -->
 
         <div class="stack-orbit reveal">
 
@@ -885,6 +1304,8 @@
         </div>
 
 
+
+        <!-- SKILLS -->
 
         <div class="skills-row reveal">
 
@@ -947,11 +1368,11 @@
 
 
 
-    <!-- PROCESS -->
+    <!-- =========================
+         PROCESS
+    ========================== -->
 
-    <section
-      class="section process-section"
-    >
+    <section class="section process-section">
 
       <div class="container">
 
@@ -994,12 +1415,13 @@
             <p>
 
               Break the problem into flows,
-              data and constraints before touching
-              the keyboard.
+              data and constraints before
+              touching the keyboard.
 
             </p>
 
           </div>
+
 
 
           <div class="process-card reveal delay-1">
@@ -1023,6 +1445,7 @@
           </div>
 
 
+
           <div class="process-card reveal delay-2">
 
             <span>
@@ -1041,6 +1464,7 @@
             </p>
 
           </div>
+
 
 
           <div class="process-card reveal delay-3">
@@ -1071,7 +1495,9 @@
 
 
 
-    <!-- CONTACT -->
+    <!-- =========================
+         CONTACT
+    ========================== -->
 
     <section
       class="section contact-section"
@@ -1080,12 +1506,12 @@
 
       <div class="container contact-box reveal">
 
+
         <div class="contact-copy">
 
           <p class="eyebrow">
             05 / CONTACT
           </p>
-
 
           <h2>
 
@@ -1102,13 +1528,14 @@
 
           <p>
 
-            I'm open to internship opportunities,
+            I’m open to internship opportunities,
             project collaboration and conversations
             about software engineering.
 
           </p>
 
         </div>
+
 
 
         <div class="contact-actions">
@@ -1140,6 +1567,10 @@
 
 
 
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
   <footer class="footer">
 
     <div class="container footer-inner">
@@ -1161,6 +1592,578 @@
   </footer>
 
 
+
+  <!-- =========================
+       LANGUAGE + PERFORMANCE
+  ========================== -->
+
+  <script>
+    (() => {
+
+      const cards =
+        document.querySelectorAll(".project-card");
+
+
+      /* =========================
+         PROJECT CARD TILT
+      ========================== */
+
+      if (
+        window.matchMedia("(hover:hover)").matches
+      ) {
+
+        cards.forEach(card => {
+
+          card.addEventListener(
+            "pointermove",
+            e => {
+
+              const r =
+                card.getBoundingClientRect();
+
+              const x =
+                (e.clientX - r.left) /
+                r.width - .5;
+
+              const y =
+                (e.clientY - r.top) /
+                r.height - .5;
+
+              card.style.transform =
+                `perspective(900px)
+                 rotateX(${-y * 2.5}deg)
+                 rotateY(${x * 2.5}deg)
+                 translateY(-3px)`;
+
+            }
+          );
+
+
+          card.addEventListener(
+            "pointerleave",
+            () => {
+              card.style.transform = "";
+            }
+          );
+
+        });
+
+      }
+
+
+
+      /* =========================
+         HERO PARALLAX
+      ========================== */
+
+      const hero =
+        document.querySelector(".hero");
+
+
+      if (
+        hero &&
+        window.matchMedia("(hover:hover)").matches
+      ) {
+
+        let raf = 0;
+        let mx = 0;
+        let my = 0;
+
+
+        hero.addEventListener(
+          "pointermove",
+          e => {
+
+            mx =
+              (e.clientX / innerWidth - .5) * 8;
+
+            my =
+              (e.clientY / innerHeight - .5) * 8;
+
+
+            if (!raf) {
+
+              raf =
+                requestAnimationFrame(() => {
+
+                  hero.style.setProperty(
+                    "--mx",
+                    mx + "px"
+                  );
+
+                  hero.style.setProperty(
+                    "--my",
+                    my + "px"
+                  );
+
+                  raf = 0;
+
+                });
+
+            }
+
+          },
+          {
+            passive: true
+          }
+        );
+
+      }
+
+
+
+      /* =========================
+         LOW POWER MODE
+      ========================== */
+
+      const lowPower =
+
+        window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches
+
+        ||
+
+        /Android|iPhone|iPad|iPod/i.test(
+          navigator.userAgent
+        )
+
+        ||
+
+        (
+          navigator.deviceMemory &&
+          navigator.deviceMemory <= 4
+        )
+
+        ||
+
+        (
+          navigator.hardwareConcurrency &&
+          navigator.hardwareConcurrency <= 4
+        );
+
+
+      if (lowPower) {
+
+        document.body.classList.add(
+          "perf-lite"
+        );
+
+      }
+
+
+
+      /* =========================
+         TRANSLATION
+      ========================== */
+
+      const translations = {
+
+        nav: {
+
+          "#navLinks a:nth-child(1)": [
+            "Giới thiệu",
+            "About"
+          ],
+
+          "#navLinks a:nth-child(2)": [
+            "Dự án",
+            "Projects"
+          ],
+
+          "#navLinks a:nth-child(3)": [
+            "Công nghệ",
+            "Stack"
+          ],
+
+          "#navLinks a:nth-child(4)": [
+            "Liên hệ",
+            "Contact"
+          ]
+
+        },
+
+
+        main: {
+
+          ".hero-copy .eyebrow": [
+            "SẴN SÀNG CHO THỰC TẬP / HỢP TÁC",
+            "AVAILABLE FOR INTERNSHIP / COLLABORATION"
+          ],
+
+          ".hero h1": [
+            "Biến ý tưởng thành<br><span class=\"gradient-text\">những thứ thật sự hữu ích.</span>",
+            "I turn ideas into<br><span class=\"gradient-text\">things people can use.</span>"
+          ],
+
+          ".hero-lead": [
+            "Mình là Khang, sinh viên CNTT tập trung vào Java, C++ và phát triển phần mềm full-stack. Mình thích biến những ý tưởng còn thô thành hệ thống có thể chạy được, rồi tiếp tục làm chúng tốt hơn.",
+            "I'm Khang, an IT student focused on Java, C++ and full-stack software development. I like taking rough ideas, turning them into systems, then making the systems better."
+          ],
+
+          ".btn-primary": [
+            "Xem dự án",
+            "Explore my work"
+          ],
+
+          ".btn-ghost": [
+            "Mở GitHub ↗",
+            "Open GitHub ↗"
+          ],
+
+          ".hero-meta div:nth-child(1) span": [
+            "dự án nổi bật",
+            "featured projects"
+          ],
+
+          ".hero-meta div:nth-child(2) span": [
+            "tập trung backend",
+            "backend focus"
+          ],
+
+          ".hero-meta div:nth-child(3) span": [
+            "giải quyết vấn đề",
+            "problem solving"
+          ],
+
+          ".terminal-body .term-output.good": [
+            "● đang xây những thứ thật sự chạy được",
+            "● building things that actually run"
+          ],
+
+          ".terminal-footer span:nth-child(2)": [
+            "● hệ thống ổn định",
+            "● clean working tree"
+          ],
+
+          ".scroll-cue": [
+            "<span></span> CUỘN ĐỂ KHÁM PHÁ",
+            "<span></span> SCROLL TO EXPLORE"
+          ],
+
+          "#about .section-intro .eyebrow": [
+            "01 / GIỚI THIỆU",
+            "01 / ABOUT"
+          ],
+
+          "#about .section-intro h2": [
+            "Tò mò là mặc định.<br><span class=\"muted\">Thực tế mới là lựa chọn.</span>",
+            "Curious by default.<br /><span class=\"muted\">Practical by choice.</span>"
+          ],
+
+          "#about .big-copy": [
+            "Mình học nhanh nhất khi có thứ gì đó thật để đưa vào vận hành.",
+            "I learn fastest when there is something real to ship."
+          ],
+
+          "#about .about-copy > p:not(.big-copy)": [
+            "Nền tảng của mình bắt đầu khá mạnh ở C++ và tư duy giải quyết vấn đề. Hiện tại mình đang đi sâu hơn vào Java backend, full-stack, Linux và quy trình DevOps.",
+            "My background started strongly in C++ and problem solving. I'm now building toward Java backend and full-stack development, with an increasing focus on Linux and DevOps workflows."
+          ],
+
+          "#about .about-facts div:nth-child(1) span": [
+            "ĐỊNH HƯỚNG",
+            "FOCUS"
+          ],
+
+          "#about .about-facts div:nth-child(2) span": [
+            "TƯ DUY",
+            "MINDSET"
+          ],
+
+          "#about .about-facts div:nth-child(3) span": [
+            "VỊ TRÍ",
+            "BASED IN"
+          ],
+
+          "#projects .section-head .eyebrow": [
+            "02 / DỰ ÁN TIÊU BIỂU",
+            "02 / SELECTED WORK"
+          ],
+
+          "#projects .section-head h2": [
+            "Ba dự án.<br><span class=\"muted\">Ba bài toán khác nhau.</span>",
+            "Three projects.<br /><span class=\"muted\">Three different problems.</span>"
+          ],
+
+          "#projects .section-note": [
+            "Mình chọn ba dự án này vì chúng thể hiện tư duy sản phẩm, kiến trúc ứng dụng, UI tương tác và hệ thống thời gian thực mà không cần giả vờ mọi bài tập đều là một startup.",
+            "I picked these three because together they show product thinking, application architecture, interactive UI and real-time systems without pretending every school project is a startup."
+          ],
+
+          ".project-linh .project-status": [
+            "ĐANG PHÁT TRIỂN",
+            "IN DEVELOPMENT"
+          ],
+
+          ".project-linh p": [
+            "Trải nghiệm tương tác về văn hóa Việt kết hợp xác thực, lưu trữ dữ liệu, cửa hàng, giỏ hàng và luồng thanh toán.",
+            "Interactive Vietnamese mythology experience combined with authentication, persistence, shop, cart and checkout flows."
+          ],
+
+          ".project-linh .project-bottom span": [
+            "Kể chuyện + kiến trúc ứng dụng",
+            "Storytelling + application architecture"
+          ],
+
+          ".project-spirit .project-status": [
+            "BẢN ĐANG CHẠY",
+            "LIVE BUILD"
+          ],
+
+          ".project-spirit p": [
+            "Web game linh thú nhiều người chơi với mini-game cạnh tranh, chiến đấu thời gian thực, sưu tầm và chế độ chơi đơn.",
+            "Multiplayer spirit game built around competitive mini-games, real-time battles, spirit collection and single-player adventures."
+          ],
+
+          ".project-spirit .project-bottom span": [
+            "Hệ thống game thời gian thực",
+            "Real-time game systems"
+          ],
+
+          ".project-travel .project-status": [
+            "SẢN PHẨM",
+            "PRODUCT"
+          ],
+
+          ".project-travel p": [
+            "Ứng dụng khám phá du lịch Việt Nam kết hợp thông tin điểm đến với hỗ trợ AI để lên ý tưởng chuyến đi.",
+            "Vietnam travel discovery app combining destination exploration with AI-assisted trip ideas and information."
+          ],
+
+          ".project-travel .project-bottom span": [
+            "Tìm kiếm + trải nghiệm du lịch với AI",
+            "Search + AI travel experience"
+          ],
+
+          "#stack .section-head .eyebrow": [
+            "03 / CÔNG NGHỆ",
+            "03 / STACK"
+          ],
+
+          "#stack .section-head h2": [
+            "Công cụ chỉ là công cụ.<br><span class=\"muted\">Điều thú vị là cách chúng kết nối.</span>",
+            "Tools are tools.<br /><span class=\"muted\">The interesting bit is how they connect.</span>"
+          ],
+
+          "#stack .section-note": [
+            "Mục tiêu hiện tại: đủ mạnh ở backend, frontend và triển khai để hiểu toàn bộ vòng đời một request, thay vì chỉ hiểu mỗi component trước mặt.",
+            "Current direction: become strong enough at backend + frontend + deployment to understand the whole request lifecycle, not just the component in front of me."
+          ],
+
+          ".orbit-center small": [
+            "VÒNG LẶP XÂY DỰNG",
+            "BUILD LOOP"
+          ],
+
+          ".skills-row div:nth-child(1) span": [
+            "NGÔN NGỮ",
+            "LANGUAGES"
+          ],
+
+          ".skills-row div:nth-child(2) span": [
+            "WEB",
+            "WEB"
+          ],
+
+          ".skills-row div:nth-child(3) span": [
+            "BACKEND",
+            "BACKEND"
+          ],
+
+          ".skills-row div:nth-child(4) span": [
+            "KỸ THUẬT",
+            "ENGINEERING"
+          ],
+
+          ".process-section .section-intro .eyebrow": [
+            "04 / CÁCH MÌNH LÀM VIỆC",
+            "04 / HOW I WORK"
+          ],
+
+          ".process-section .section-intro h2": [
+            "Một vòng lặp đơn giản.<br><span class=\"muted\">Lặp lại đến khi tốt.</span>",
+            "A simple loop.<br /><span class=\"muted\">Repeated aggressively.</span>"
+          ],
+
+          ".process-card:nth-child(1) h3": [
+            "Hiểu",
+            "Understand"
+          ],
+
+          ".process-card:nth-child(1) p": [
+            "Tách bài toán thành luồng xử lý, dữ liệu và ràng buộc trước khi bắt tay vào code.",
+            "Break the problem into flows, data and constraints before touching the keyboard."
+          ],
+
+          ".process-card:nth-child(2) h3": [
+            "Xây dựng",
+            "Build"
+          ],
+
+          ".process-card:nth-child(2) p": [
+            "Bắt đầu từ đường đi nhỏ nhất có ích rồi mới thêm tính năng, thay vì dựng kiến trúc quá mức cần thiết.",
+            "Start with the smallest useful path, then layer features instead of inventing architecture fan-fiction."
+          ],
+
+          ".process-card:nth-child(3) h3": [
+            "Kiểm chứng",
+            "Verify"
+          ],
+
+          ".process-card:nth-child(3) p": [
+            "Chạy thử, quan sát, kiểm tra edge case và sửa những gì thực tế vừa phơi bày.",
+            "Run it, inspect it, test edge cases, and fix what reality just exposed."
+          ],
+
+          ".process-card:nth-child(4) h3": [
+            "Cải thiện",
+            "Improve"
+          ],
+
+          ".process-card:nth-child(4) p": [
+            "Refactor, bảo mật, tài liệu hóa và deploy. Một project chỉ chạy trên một laptop chưa thực sự sẵn sàng.",
+            "Refactor, secure, document and deploy. A project that only works on one laptop is a hostage situation."
+          ],
+
+          "#contact .contact-copy .eyebrow": [
+            "05 / LIÊN HỆ",
+            "05 / CONTACT"
+          ],
+
+          "#contact .contact-copy h2": [
+            "Cùng xây thứ gì đó<br><span class=\"gradient-text\">đáng để khoe.</span>",
+            "Let's build something<br /><span class=\"gradient-text\">worth showing.</span>"
+          ],
+
+          "#contact .contact-copy > p:last-child": [
+            "Mình sẵn sàng cho cơ hội thực tập, hợp tác dự án và những cuộc trao đổi về kỹ thuật phần mềm.",
+            "I’m open to internship opportunities, project collaboration and conversations about software engineering."
+          ],
+
+          ".footer-inner span:nth-child(2)": [
+            "Xây dựng bằng HTML · CSS · JavaScript",
+            "Built with HTML · CSS · JavaScript"
+          ],
+
+          ".footer-inner a": [
+            "Về đầu trang ↑",
+            "Back to top ↑"
+          ]
+
+        }
+
+      };
+
+
+
+      /* =========================
+         LANGUAGE SWITCH
+      ========================== */
+
+      const toggle =
+        document.getElementById(
+          "langToggle"
+        );
+
+
+      let lang =
+        localStorage.getItem(
+          "portfolio-lang"
+        ) || "vi";
+
+
+      function applyLanguage() {
+
+        for (
+          const [selector, values]
+          of Object.entries(
+            translations.nav
+          )
+        ) {
+
+          const el =
+            document.querySelector(selector);
+
+          if (el) {
+
+            el.innerHTML =
+              values[
+                lang === "vi" ? 0 : 1
+              ];
+
+          }
+
+        }
+
+
+        for (
+          const [selector, values]
+          of Object.entries(
+            translations.main
+          )
+        ) {
+
+          const el =
+            document.querySelector(selector);
+
+          if (el) {
+
+            el.innerHTML =
+              values[
+                lang === "vi" ? 0 : 1
+              ];
+
+          }
+
+        }
+
+
+        document.documentElement.lang =
+          lang;
+
+
+        if (toggle) {
+
+          toggle.textContent =
+            lang === "vi"
+              ? "EN"
+              : "VI";
+
+        }
+
+      }
+
+
+      toggle?.addEventListener(
+        "click",
+        () => {
+
+          lang =
+            lang === "vi"
+              ? "en"
+              : "vi";
+
+
+          localStorage.setItem(
+            "portfolio-lang",
+            lang
+          );
+
+
+          applyLanguage();
+
+        }
+      );
+
+
+      applyLanguage();
+
+    })();
+  </script>
+
+
+  <!-- Main interaction -->
   <script src="script.js"></script>
 
 </body>

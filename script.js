@@ -1,1003 +1,255 @@
-const loader =
-  document.getElementById("loader");
+const loader = document.getElementById("loader");
+const header = document.getElementById("siteHeader");
+const spotlight = document.getElementById("spotlight");
+const cursor = document.getElementById("cursor");
+const cursorDot = document.getElementById("cursorDot");
+const copyBtn = document.getElementById("copyCommand");
+const typedCommand = document.getElementById("typedCommand");
+const langToggle = document.getElementById("langToggle");
 
-const header =
-  document.getElementById("siteHeader");
+const mobile = window.matchMedia("(max-width: 650px)").matches;
+const touch = "ontouchstart" in window;
 
-const spotlight =
-  document.getElementById("spotlight");
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    loader.classList.add("hide");
+  }, 700);
+});
 
-const cursor =
-  document.getElementById("cursor");
+/* HEADER */
 
-const cursorDot =
-  document.getElementById("cursorDot");
+let lastScroll = 0;
+let ticking = false;
 
-const copyButton =
-  document.getElementById("copyCommand");
+function updateScroll() {
+  const y = window.scrollY;
 
-const typedCommand =
-  document.getElementById("typedCommand");
-
-const prefersReducedMotion =
-  window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-window.addEventListener(
-  "load",
-  () => {
-
-    setTimeout(
-      () => {
-
-        loader?.classList.add("hide");
-
-        document.body.classList.add(
-          "loaded"
-        );
-
-      },
-      900
-    );
-
+  if (y > 30) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
   }
-);
 
-const scrollProgress =
-  document.createElement("div");
-
-scrollProgress.className =
-  "scroll-progress";
-
-document.body.appendChild(
-  scrollProgress
-);
-
-
-const updateScrollUI = () => {
-
-  const max =
-    document.documentElement
-      .scrollHeight -
-    window.innerHeight;
-
-  const progress =
-    max > 0
-      ? window.scrollY / max
-      : 0;
-
-
-  scrollProgress.style.width =
-    `${progress * 100}%`;
-
-
-  header.classList.toggle(
-    "scrolled",
-    window.scrollY > 30
-  );
-
-};
-
-
-window.addEventListener(
-  "scroll",
-  updateScrollUI,
-  {
-    passive: true
-  }
-);
-
-
-updateScrollUI();
-
-const vignette =
-  document.createElement("div");
-
-vignette.className =
-  "page-vignette";
-
-document.body.appendChild(
-  vignette
-);
-
-
-const hero =
-  document.querySelector(".hero");
-
-
-if (hero) {
-
-  const chips = [
-
-    ["JAVA", "a"],
-
-    ["API / REST", "b"],
-
-    ["git push", "c"]
-
-  ];
-
-
-  chips.forEach(
-    ([text, cls]) => {
-
-      const chip =
-        document.createElement("span");
-
-      chip.className =
-        `float-chip ${cls}`;
-
-      chip.textContent =
-        text;
-
-      hero.appendChild(
-        chip
-      );
-
-    }
-  );
-
-
-  const status =
-    document.createElement("div");
-
-
-  status.className =
-    "terminal-status";
-
-
-  status.innerHTML =
-    '<span style="color:#48e0c4">●</span> systems online';
-
-
-  document
-    .querySelector(
-      ".hero-terminal"
-    )
-    ?.appendChild(
-      status
-    );
-
+  lastScroll = y;
+  ticking = false;
 }
 
-if (!prefersReducedMotion) {
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    requestAnimationFrame(updateScroll);
+    ticking = true;
+  }
+}, { passive: true });
 
-  const canvas =
-    document.createElement("canvas");
+/* REVEAL */
 
-  canvas.id =
-    "ambientCanvas";
+const reveals = document.querySelectorAll(".reveal");
 
-  document.body.prepend(
-    canvas
-  );
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px"
+  }
+);
 
+reveals.forEach(el => observer.observe(el));
 
-  const ctx =
-    canvas.getContext("2d");
+/* CURSOR + SPOTLIGHT */
 
+if (!mobile && !touch) {
+  let mouseX = 0;
+  let mouseY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let running = false;
 
-  let w = 0;
+  function animateCursor() {
+    currentX += (mouseX - currentX) * 0.18;
+    currentY += (mouseY - currentY) * 0.18;
 
-  let h = 0;
+    cursor.style.left = currentX + "px";
+    cursor.style.top = currentY + "px";
 
-  let dpr =
-    Math.min(
-      window.devicePixelRatio || 1,
-      2
-    );
+    cursorDot.style.left = mouseX + "px";
+    cursorDot.style.top = mouseY + "px";
 
+    spotlight.style.setProperty("--mx", mouseX + "px");
+    spotlight.style.setProperty("--my", mouseY + "px");
 
-  const pointer = {
-    x: -1000,
-    y: -1000
-  };
+    running = false;
+  }
 
+  window.addEventListener("mousemove", e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-  const particles = [];
+    if (!running) {
+      requestAnimationFrame(animateCursor);
+      running = true;
+    }
+  }, { passive: true });
 
-
-  const resize = () => {
-
-    w =
-      window.innerWidth;
-
-    h =
-      window.innerHeight;
-
-
-    dpr =
-      Math.min(
-        window.devicePixelRatio || 1,
-        2
-      );
-
-
-    canvas.width =
-      w * dpr;
-
-    canvas.height =
-      h * dpr;
-
-
-    ctx.setTransform(
-      dpr,
-      0,
-      0,
-      dpr,
-      0,
-      0
-    );
-
-  };
-
-
-  resize();
-
-
-  window.addEventListener(
-    "resize",
-    resize
-  );
-
-
-  const count =
-    Math.min(
-      80,
-      Math.max(
-        36,
-        Math.floor(
-          (w * h) / 26000
-        )
-      )
-    );
-
-
-  for (
-    let i = 0;
-    i < count;
-    i++
-  ) {
-
-    particles.push({
-
-      x:
-        Math.random() * w,
-
-      y:
-        Math.random() * h,
-
-      r:
-        Math.random() * 1.5 +
-        .35,
-
-      vx:
-        (Math.random() - .5) *
-        .08,
-
-      vy:
-        (Math.random() - .5) *
-        .08,
-
-      a:
-        Math.random() * .5 +
-        .1
-
+  document.querySelectorAll("a, button, .project-card").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      cursor.style.width = "46px";
+      cursor.style.height = "46px";
     });
 
-  }
-
-
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-
-      pointer.x =
-        e.clientX;
-
-      pointer.y =
-        e.clientY;
-
-    },
-    {
-      passive: true
-    }
-  );
-
-
-  const draw = () => {
-
-    ctx.clearRect(
-      0,
-      0,
-      w,
-      h
-    );
-
-
-    for (const p of particles) {
-
-      const dx =
-        pointer.x -
-        p.x;
-
-      const dy =
-        pointer.y -
-        p.y;
-
-
-      const dist =
-        Math.hypot(
-          dx,
-          dy
-        );
-
-
-      if (dist < 170) {
-
-        p.x -=
-          dx * 0.0006;
-
-        p.y -=
-          dy * 0.0006;
-
-      }
-
-
-      p.x += p.vx;
-
-      p.y += p.vy;
-
-
-      if (p.x < -10)
-        p.x = w + 10;
-
-      if (p.x > w + 10)
-        p.x = -10;
-
-      if (p.y < -10)
-        p.y = h + 10;
-
-      if (p.y > h + 10)
-        p.y = -10;
-
-
-      ctx.beginPath();
-
-      ctx.arc(
-        p.x,
-        p.y,
-        p.r,
-        0,
-        Math.PI * 2
-      );
-
-
-      ctx.fillStyle =
-        `rgba(
-          196,
-          204,
-          255,
-          ${p.a}
-        )`;
-
-
-      ctx.fill();
-
-    }
-
-
-    requestAnimationFrame(
-      draw
-    );
-
-  };
-
-
-  draw();
-
-}
-if (
-  window.matchMedia(
-    "(pointer:fine)"
-  ).matches
-) {
-
-  let cx = 0;
-
-  let cy = 0;
-
-  let tx = 0;
-
-  let ty = 0;
-
-
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-
-      tx =
-        e.clientX;
-
-      ty =
-        e.clientY;
-
-
-      spotlight?.style.setProperty(
-        "--mx",
-        `${e.clientX}px`
-      );
-
-
-      spotlight?.style.setProperty(
-        "--my",
-        `${e.clientY}px`
-      );
-
-    },
-    {
-      passive: true
-    }
-  );
-
-
-  const moveCursor = () => {
-
-    cx +=
-      (tx - cx) *
-      .16;
-
-
-    cy +=
-      (ty - cy) *
-      .16;
-
-
-    if (cursor) {
-
-      cursor.style.left =
-        `${cx}px`;
-
-      cursor.style.top =
-        `${cy}px`;
-
-    }
-
-
-    if (cursorDot) {
-
-      cursorDot.style.left =
-        `${tx}px`;
-
-      cursorDot.style.top =
-        `${ty}px`;
-
-    }
-
-
-    requestAnimationFrame(
-      moveCursor
-    );
-
-  };
-
-
-  moveCursor();
-
-}
-document
-  .querySelectorAll(
-    "a,button,[data-tilt],.tags span"
-  )
-  .forEach(
-    (el) => {
-
-      el.addEventListener(
-        "mouseenter",
-        () => {
-
-          cursor?.classList.add(
-            "active"
-          );
-
-        }
-      );
-
-
-      el.addEventListener(
-        "mouseleave",
-        () => {
-
-          cursor?.classList.remove(
-            "active"
-          );
-
-        }
-      );
-
-    }
-  );
-
-const revealItems =
-  document.querySelectorAll(
-    ".reveal"
-  );
-
-
-if (prefersReducedMotion) {
-
-  revealItems.forEach(
-    (el) =>
-      el.classList.add("in")
-  );
-
-} else {
-
-  const revealObserver =
-    new IntersectionObserver(
-      (entries) => {
-
-        entries.forEach(
-          (entry) => {
-
-            if (
-              entry.isIntersecting
-            ) {
-
-              entry.target.classList.add(
-                "in"
-              );
-
-
-              revealObserver.unobserve(
-                entry.target
-              );
-
-            }
-
-          }
-        );
-
-      },
-      {
-        threshold: .12
-      }
-    );
-
-
-  revealItems.forEach(
-    (el) =>
-      revealObserver.observe(el)
-  );
-
+    el.addEventListener("mouseleave", () => {
+      cursor.style.width = "32px";
+      cursor.style.height = "32px";
+    });
+  });
 }
 
-const sections = [
-  ...document.querySelectorAll(
-    "main section[id]"
-  )
+/* TYPING */
+
+const commands = [
+  "npm run build",
+  "git status",
+  "java -jar app.jar",
+  "docker compose up",
+  "git push origin main"
 ];
 
+let commandIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-const navItems = [
-  ...document.querySelectorAll(
-    ".nav-links a"
-  )
-];
+function typeCommand() {
+  if (!typedCommand) return;
 
+  const text = commands[commandIndex];
 
-const updateActiveNav = () => {
+  if (!deleting) {
+    typedCommand.textContent = text.slice(0, charIndex + 1);
+    charIndex++;
 
-  const point =
-    window.scrollY + 180;
-
-
-  let current =
-    "home";
-
-
-  sections.forEach(
-    (section) => {
-
-      if (
-        point >=
-        section.offsetTop
-      ) {
-
-        current =
-          section.id;
-
-      }
-
+    if (charIndex === text.length) {
+      deleting = true;
+      setTimeout(typeCommand, 1400);
+      return;
     }
-  );
+  } else {
+    typedCommand.textContent = text.slice(0, charIndex - 1);
+    charIndex--;
 
-
-  navItems.forEach(
-    (item) => {
-
-      item.classList.toggle(
-        "active",
-
-        item.getAttribute(
-          "href"
-        ) ===
-        `#${current}`
-      );
-
+    if (charIndex === 0) {
+      deleting = false;
+      commandIndex = (commandIndex + 1) % commands.length;
     }
-  );
-
-};
-
-
-window.addEventListener(
-  "scroll",
-  updateActiveNav,
-  {
-    passive: true
   }
-);
 
-
-updateActiveNav();
-if (
-  typedCommand &&
-  !prefersReducedMotion
-) {
-
-  const commands = [
-
-    "npm run build",
-
-    "git push origin main",
-
-    "docker compose up",
-
-    "java -jar app.jar",
-
-    "solve(problem)"
-
-  ];
-
-
-  let commandIndex = 0;
-
-  let charIndex = 0;
-
-  let deleting = false;
-
-
-  const typeCommand = () => {
-
-    const current =
-      commands[commandIndex];
-
-
-    if (!deleting) {
-
-      typedCommand.textContent =
-        current.slice(
-          0,
-          charIndex + 1
-        );
-
-
-      charIndex += 1;
-
-
-      if (
-        charIndex ===
-        current.length
-      ) {
-
-        deleting =
-          true;
-
-        return setTimeout(
-          typeCommand,
-          1200
-        );
-
-      }
-
-    } else {
-
-      typedCommand.textContent =
-        current.slice(
-          0,
-          Math.max(
-            0,
-            charIndex - 1
-          )
-        );
-
-
-      charIndex -= 1;
-
-
-      if (
-        charIndex === 0
-      ) {
-
-        deleting =
-          false;
-
-
-        commandIndex =
-          (
-            commandIndex + 1
-          ) %
-          commands.length;
-
-      }
-
-    }
-
-
-    setTimeout(
-      typeCommand,
-      deleting
-        ? 38
-        : 65
-    );
-
-  };
-
-
-  setTimeout(
-    typeCommand,
-    1350
-  );
-
+  setTimeout(typeCommand, deleting ? 35 : 65);
 }
 
-copyButton?.addEventListener(
-  "click",
-  async () => {
+setTimeout(typeCommand, 1000);
+
+/* COPY */
+
+if (copyBtn) {
+  copyBtn.addEventListener("click", async () => {
+    const text = "git clone https://github.com/KhangDo25";
 
     try {
+      await navigator.clipboard.writeText(text);
 
-      await navigator.clipboard.writeText(
-        "git clone https://github.com/KhangDo25"
-      );
+      copyBtn.textContent = "copied";
 
-
-      copyButton.textContent =
-        "copied";
-
+      setTimeout(() => {
+        copyBtn.textContent = "copy";
+      }, 1200);
     } catch {
+      copyBtn.textContent = "error";
 
-      copyButton.textContent =
-        "copy failed";
-
+      setTimeout(() => {
+        copyBtn.textContent = "copy";
+      }, 1200);
     }
-
-
-    setTimeout(
-      () => {
-
-        copyButton.textContent =
-          "copy";
-
-      },
-      1600
-    );
-
-  }
-);
-
-if (
-  window.matchMedia(
-    "(pointer:fine)"
-  ).matches &&
-  !prefersReducedMotion
-) {
-
-  document
-    .querySelectorAll(
-      "[data-tilt]"
-    )
-    .forEach(
-      (card) => {
-
-        card.addEventListener(
-          "mousemove",
-          (e) => {
-
-            const rect =
-              card.getBoundingClientRect();
-
-
-            const x =
-              e.clientX -
-              rect.left;
-
-
-            const y =
-              e.clientY -
-              rect.top;
-
-
-            const rx =
-              (
-                (y /
-                  rect.height) -
-                .5
-              ) *
-              -4.5;
-
-
-            const ry =
-              (
-                (x /
-                  rect.width) -
-                .5
-              ) *
-              6.5;
-
-
-            card.style.setProperty(
-              "--card-x",
-              `${x}px`
-            );
-
-
-            card.style.setProperty(
-              "--card-y",
-              `${y}px`
-            );
-
-
-            card.style.transform =
-              `
-                perspective(1100px)
-                rotateX(${rx}deg)
-                rotateY(${ry}deg)
-                translateY(-5px)
-              `;
-
-          }
-        );
-
-
-        card.addEventListener(
-          "mouseleave",
-          () => {
-
-            card.style.transform =
-              "";
-
-            card.style.removeProperty(
-              "--card-x"
-            );
-
-            card.style.removeProperty(
-              "--card-y"
-            );
-
-          }
-        );
-
-      }
-    );
-
+  });
 }
 
-if (
-  window.matchMedia(
-    "(pointer:fine)"
-  ).matches &&
-  !prefersReducedMotion
-) {
+/* MAGNETIC */
 
-  document
-    .querySelectorAll(
-      ".magnetic"
-    )
-    .forEach(
-      (el) => {
+if (!mobile && !touch) {
+  document.querySelectorAll(".magnetic").forEach(el => {
+    let raf = null;
 
-        el.addEventListener(
-          "mousemove",
-          (e) => {
+    el.addEventListener("mousemove", e => {
+      if (raf) return;
 
-            const rect =
-              el.getBoundingClientRect();
+      raf = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
 
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
 
-            const x =
-              e.clientX -
-              (
-                rect.left +
-                rect.width / 2
-              );
+        el.style.transform = `translate(${x}px, ${y}px)`;
 
+        raf = null;
+      });
+    });
 
-            const y =
-              e.clientY -
-              (
-                rect.top +
-                rect.height / 2
-              );
-
-
-            el.style.transform =
-              `
-                translate(
-                  ${x * .12}px,
-                  ${y * .12}px
-                )
-              `;
-
-          }
-        );
-
-
-        el.addEventListener(
-          "mouseleave",
-          () => {
-
-            el.style.transform =
-              "";
-
-          }
-        );
-
-      }
-    );
-
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "";
+    });
+  });
 }
 
-if (!prefersReducedMotion) {
+/* TILT */
 
-  const heroCopy =
-    document.querySelector(
-      ".hero-copy"
-    );
+if (!mobile && !touch) {
+  document.querySelectorAll("[data-tilt]").forEach(card => {
+    let raf = null;
 
+    card.addEventListener("mousemove", e => {
+      if (raf) return;
 
-  const terminal =
-    document.querySelector(
-      ".hero-terminal"
-    );
+      raf = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
 
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-  window.addEventListener(
-    "scroll",
-    () => {
+        const rotateY = ((x / rect.width) - 0.5) * 5;
+        const rotateX = ((y / rect.height) - 0.5) * -5;
 
-      const y =
-        Math.min(
-          window.scrollY,
-          420
-        );
+        card.style.transform =
+          `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
+        raf = null;
+      });
+    });
 
-      if (heroCopy) {
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+}
 
-        heroCopy.style.transform =
-          `
-            translateY(
-              ${y * -0.05}px
-            )
-          `;
+/* LANGUAGE */
 
-      }
+let english = false;
 
+if (langToggle) {
+  langToggle.addEventListener("click", () => {
+    english = !english;
 
-      if (terminal) {
+    langToggle.textContent = english ? "VI" : "EN";
 
-        terminal.style.marginTop =
-          `${y * 0.025}px`;
+    document.documentElement.lang = english ? "en" : "vi";
 
-      }
-
-    },
-    {
-      passive: true
-    }
-  );
-
+    document.querySelector(".hero-copy h1").innerHTML =
+      english
+        ? `Turning ideas into <span class="gradient-text">things that actually work.</span>`
+        : `Biến ý tưởng thành <span class="gradient-text">những thứ thật sự hữu ích.</span>`;
+  });
 }
